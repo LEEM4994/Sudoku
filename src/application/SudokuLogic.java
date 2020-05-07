@@ -2,6 +2,8 @@ package application;
 
 import javafx.scene.control.TextField;
 
+//Author: Matthew Lee
+
 public class SudokuLogic {
 	
 	private static int answerKey[][] = { 
@@ -64,5 +66,5 @@ public class SudokuLogic {
 			return true;
 		}
 	}
-**/	
+**/ 
 }
