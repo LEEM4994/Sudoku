@@ -61,10 +61,10 @@ public class SudokuLogic {
 	
 	public static boolean checkUserEntry(int i, int j) {
 		int userEntry = userAnswers[i][j];
-		if(userEntry != answerKey[i][j]) {
-			return false;
-		} else { 
+		if(userEntry == answerKey[i][j]) {
 			return true;
+		} else { 
+			return false;
 		}
 	}
 	
