@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
@@ -63,6 +64,7 @@ public class SudokuApp extends Application {
 		text = new Text(
 				"Welcome to Sudoku!\n\nPress enter to play.\n\nClick on spaces and enter\nnumbers.\n\nPress escape to quit.");
 		text.setFont(font);
+		text.setTextAlignment(TextAlignment.CENTER);
 		pane = new FlowPane(text);
 		scene1 = new Scene(pane, 600, 400, Color.WHITESMOKE);
 		this.window = window;
@@ -131,10 +133,10 @@ public class SudokuApp extends Application {
 		
 		whiteFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
 		correctFill = new Background(whiteFill);
-
-		SudokuLogic.getUserNumbers(sudokuGrid);
+		
 		for (int i = 0; i <= 8; i++) {
 			for (int j = 0; j <= 8; j++) {
+				SudokuLogic.getUserNumbers(sudokuGrid);
 				correctEntries = SudokuLogic.checkUserEntry(i, j);
 				if (Integer.valueOf(sudokuGrid[i][j].getText()) == 0 || correctEntries == true) {
 					sudokuGrid[i][j].setBackground(correctFill);
@@ -151,8 +153,25 @@ public class SudokuApp extends Application {
 						soundClip.start();
 					} catch (Exception e) {
 						System.out.println("Exception thrown");
-
 					}
+				}
+				if(SudokuLogic.checkForWin()) {
+					text.setText("Congratulations! You Win!\n");
+					text.setFont(font);
+					text.setTextAlignment(TextAlignment.CENTER);
+					this.window.setScene(scene1);
+					try {
+						file = new File("correct.wav");
+						audioInput = AudioSystem.getAudioInputStream(file);
+						format = audioInput.getFormat();
+						data = new DataLine.Info(Clip.class, format);
+						soundClip = (Clip) AudioSystem.getLine(data);
+						soundClip.open(audioInput);
+						soundClip.start();
+					} catch (Exception e) {
+						System.out.println("Exception thrown");
+					}
+					soundClip.stop();
 				}
 			}
 		}
