@@ -12,6 +12,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,6 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -47,6 +51,8 @@ public class SudokuApp extends Application {
 	private AudioFormat format;
 	private Clip soundClip;
 	private DataLine.Info data;
+	private BackgroundFill redFill;
+	private Background incorrectFill;
 
 	@Override
 	public void start(Stage window) throws Exception {
@@ -81,7 +87,8 @@ public class SudokuApp extends Application {
 
 				}
 			}
-			
+
+			//lines to separate grids
 			Line line1 = new Line(675, 225, 0, 225);
 			line1.setStrokeWidth(6);
 			line1.setStroke(Color.LIGHTBLUE);
@@ -94,7 +101,7 @@ public class SudokuApp extends Application {
 			Line line4 = new Line(450, 675, 450, 0);
 			line4.setStrokeWidth(6);
 			line4.setStroke(Color.LIGHTBLUE);
-			
+
 			root = new Group(gridPane, line1, line2, line3, line4);
 
 			for (int i = 0; i < 9; i++) {
@@ -116,17 +123,33 @@ public class SudokuApp extends Application {
 	}
 
 	void processMouseClick(MouseEvent event) {
-		
-		try {
-			file = new File("incorrect.wav");
-			audioInput = AudioSystem.getAudioInputStream(file);
-			format = audioInput.getFormat();
-			data = new DataLine.Info(Clip.class, format);
-			soundClip = (Clip) AudioSystem.getLine(data);
-			soundClip.open(audioInput);
-			soundClip.start();
-		} catch (Exception e) {
-			System.out.println("Exception thrown");
+		boolean correctEntries = false;
+		redFill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
+		incorrectFill = new Background(redFill);
+
+		SudokuLogic.getUserNumbers(sudokuGrid);
+		for (int i = 0; i <= 8; i++) {
+			for (int j = 0; j <= 8; j++) {
+				correctEntries = SudokuLogic.checkUserEntry(i, j);
+				if (Integer.valueOf(sudokuGrid[i][j].getText()) == 0) {
+
+				} else if (correctEntries == false) {
+					sudokuGrid[i][j].setBackground(incorrectFill);
+					//incorrect sound
+					try {
+						file = new File("incorrect.wav");
+						audioInput = AudioSystem.getAudioInputStream(file);
+						format = audioInput.getFormat();
+						data = new DataLine.Info(Clip.class, format);
+						soundClip = (Clip) AudioSystem.getLine(data);
+						soundClip.open(audioInput);
+						soundClip.start();
+					} catch (Exception e) {
+						System.out.println("Exception thrown");
+
+					}
+				}
+			}
 		}
 	}
 
