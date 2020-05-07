@@ -30,7 +30,7 @@ public class SudokuLogic {
 		{0, 0, 0, 0, 0, 0, 0, 1, 3}
 	};
 	
-	private int userAnswers[][] = { 
+	private static int userAnswers[][] = { 
 		{0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -51,20 +51,21 @@ public class SudokuLogic {
 		}
 	}
 	
-	/**public void getUserNumbers(TextField textAnswers) {
+	public static void getUserNumbers(TextField textAnswers[][]) {
 		for (int i = 0; i <= 8; i++) {
 			for (int j = 0; j <= 8; j++) {
-				userAnswers[i][j] = textAnswers[i][j].getText();
+				userAnswers[i][j] = Integer.valueOf(textAnswers[i][j].getText());
 			}
 		}
 	}
 	
-	public boolean checkUserEntry(int userEntry, int i, int j) {
+	public static boolean checkUserEntry(int i, int j) {
+		int userEntry = userAnswers[i][j];
 		if(userEntry != answerKey[i][j]) {
 			return false;
 		} else { 
 			return true;
 		}
 	}
-**/ 
+	
 }
