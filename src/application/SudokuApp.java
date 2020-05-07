@@ -32,6 +32,7 @@ import javafx.stage.Stage;
 public class SudokuApp extends Application {
 
 	private TextField sudokuGrid[][];
+	private TextField focusedTextField;
 	private Stage window;
 	private Font font;
 	private Text text;
