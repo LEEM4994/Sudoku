@@ -194,7 +194,7 @@ public class SudokuApp extends Application {
 					sudokuGrid[i][j].setBackground(incorrectFill);
 					// incorrect.wav sound played for incorrect input
 					try {
-						file = new File("incorrect.wav");
+						file = new File("src\\incorrect.wav");
 						audioInput = AudioSystem.getAudioInputStream(file);
 						format = audioInput.getFormat();
 						data = new DataLine.Info(Clip.class, format);
@@ -202,16 +202,16 @@ public class SudokuApp extends Application {
 						soundClip.open(audioInput);
 						soundClip.start();
 					} catch (Exception e) {
-						System.out.println("Exception thrown");
+						System.out.println("Exception thrown" + e);
 					}
 				}
-				if(SudokuLogic.checkForWin()) {
+				if(true) {
 					text.setText("Congratulations! You Win!\n");
 					text.setFont(font);
 					text.setTextAlignment(TextAlignment.CENTER);
 					this.window.setScene(scene1);
 					try {
-						file = new File("correct.wav");
+						file = new File("src\\correct.wav");
 						audioInput = AudioSystem.getAudioInputStream(file);
 						format = audioInput.getFormat();
 						data = new DataLine.Info(Clip.class, format);
@@ -221,7 +221,6 @@ public class SudokuApp extends Application {
 					} catch (Exception e) {
 						System.out.println("Exception thrown");
 					}
-					soundClip.stop();
 				}
 			}
 		}
