@@ -33,7 +33,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
- * @author CastilloCanedoMichel
+ * @author Michelle Castillo Canedo and Matthew Lee
  *
  */
 public class SudokuApp extends Application {
@@ -58,6 +58,10 @@ public class SudokuApp extends Application {
 	private Background correctFill;
 
 	@Override
+	
+	/*
+	 * Sets up the start game screen and gives the user some instructions
+	 */
 	public void start(Stage window) throws Exception {
 		font = new Font("Arial", 40);
 		font1 = Font.font(20);
@@ -75,6 +79,11 @@ public class SudokuApp extends Application {
 
 	}
 
+	/**
+	 * when the user presses the enter key the sudoku grid is populated
+	 * and set into a gridPane
+	 * @param event
+	 */
 	private void processKeyPress(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			sudokuGrid = new TextField[9][9];
@@ -92,21 +101,62 @@ public class SudokuApp extends Application {
 				}
 			}
 
-			//lines to separate grids
-			Line line1 = new Line(675, 225, 0, 225);
+			//thick lines to separate grids
+			Line line1 = new Line(675, 225, 0, 225); //horizontal
 			line1.setStrokeWidth(6);
 			line1.setStroke(Color.LIGHTBLUE);
-			Line line2 = new Line(675, 450, 0, 450);
+			Line line2 = new Line(675, 450, 0, 450); //horizontal
 			line2.setStrokeWidth(6);
 			line2.setStroke(Color.LIGHTBLUE);
-			Line line3 = new Line(225, 675, 225, 0);
+			Line line3 = new Line(225, 675, 225, 0); //vertical
 			line3.setStrokeWidth(6);
 			line3.setStroke(Color.LIGHTBLUE);
-			Line line4 = new Line(450, 675, 450, 0);
+			Line line4 = new Line(450, 675, 450, 0); //vertical
 			line4.setStrokeWidth(6);
 			line4.setStroke(Color.LIGHTBLUE);
+			Group thickGrid = new Group(line1, line2, line3, line4);
 
-			root = new Group(gridPane, line1, line2, line3, line4);
+			//thin lines to further separate the smaller grids within the board
+			Line line5 = new Line(675, 75, 0, 75);
+			line5.setStrokeWidth(2);
+			line5.setStroke(Color.GREY);
+			Line line6 = new Line(675, 150, 0, 150);
+			line6.setStrokeWidth(2);
+			line6.setStroke(Color.GREY);
+			Line line7 = new Line(675, 300, 0, 300);
+			line7.setStrokeWidth(2);
+			line7.setStroke(Color.GREY);
+			Line line8 = new Line(675, 375, 0, 375);
+			line8.setStrokeWidth(2);
+			line8.setStroke(Color.GREY);
+			Line line9 = new Line(675, 525, 0, 525);
+			line9.setStrokeWidth(2);
+			line9.setStroke(Color.GREY);
+			Line line10 = new Line(675, 600, 0, 600);
+			line10.setStrokeWidth(2);
+			line10.setStroke(Color.GREY);
+			//vertical lines
+			Line line11 = new Line(75, 675, 75, 0);
+			line11.setStrokeWidth(2);
+			line11.setStroke(Color.GREY);
+			Line line12 = new Line(150, 675, 150, 0);
+			line12.setStrokeWidth(2);
+			line12.setStroke(Color.GREY);
+			Line line13 = new Line(300, 675, 300, 0);
+			line13.setStrokeWidth(2);
+			line13.setStroke(Color.GREY);
+			Line line14 = new Line(375, 675, 375, 0);
+			line14.setStrokeWidth(2);
+			line14.setStroke(Color.GREY);
+			Line line15 = new Line(525, 675, 525, 0);
+			line15.setStrokeWidth(2);
+			line15.setStroke(Color.GREY);
+			Line line16 = new Line(600, 675, 600, 0);
+			line16.setStrokeWidth(2);
+			line16.setStroke(Color.GREY);
+			Group thinGrid = new Group(line5, line6, line7, line8, line9, line10, line11, line12, line13, line14, line15, line16);
+			
+			root = new Group(gridPane, thinGrid, thickGrid);
 
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
@@ -142,7 +192,7 @@ public class SudokuApp extends Application {
 					sudokuGrid[i][j].setBackground(correctFill);
 				} else if (correctEntries == false) {
 					sudokuGrid[i][j].setBackground(incorrectFill);
-					//incorrect sound
+					// incorrect.wav sound played for incorrect input
 					try {
 						file = new File("incorrect.wav");
 						audioInput = AudioSystem.getAudioInputStream(file);
