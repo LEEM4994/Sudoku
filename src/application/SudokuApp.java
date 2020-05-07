@@ -53,6 +53,8 @@ public class SudokuApp extends Application {
 	private DataLine.Info data;
 	private BackgroundFill redFill;
 	private Background incorrectFill;
+	private BackgroundFill whiteFill;
+	private Background correctFill;
 
 	@Override
 	public void start(Stage window) throws Exception {
@@ -124,15 +126,18 @@ public class SudokuApp extends Application {
 
 	void processMouseClick(MouseEvent event) {
 		boolean correctEntries = false;
-		redFill = new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
+		redFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
 		incorrectFill = new Background(redFill);
+		
+		whiteFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
+		correctFill = new Background(whiteFill);
 
 		SudokuLogic.getUserNumbers(sudokuGrid);
 		for (int i = 0; i <= 8; i++) {
 			for (int j = 0; j <= 8; j++) {
 				correctEntries = SudokuLogic.checkUserEntry(i, j);
-				if (Integer.valueOf(sudokuGrid[i][j].getText()) == 0) {
-
+				if (Integer.valueOf(sudokuGrid[i][j].getText()) == 0 || correctEntries == true) {
+					sudokuGrid[i][j].setBackground(correctFill);
 				} else if (correctEntries == false) {
 					sudokuGrid[i][j].setBackground(incorrectFill);
 					//incorrect sound
