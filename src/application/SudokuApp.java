@@ -65,7 +65,7 @@ public class SudokuApp extends Application {
 	private void processKeyPress(KeyEvent event) {
 		if (event.getCode() == KeyCode.S) {
 			sudokuGrid = new TextField[9][9];
-			initializeGrid(sudokuGrid);
+			SudokuLogic.initializeGrid(sudokuGrid);
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
 					root = new Group(sudokuGrid[i][j]);

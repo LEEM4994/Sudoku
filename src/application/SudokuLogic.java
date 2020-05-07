@@ -18,7 +18,7 @@ public class SudokuLogic {
 		{2, 6, 8, 4, 9, 5, 7, 1, 3}
 	};
 	
-	private int baseGrid[][] = { 
+	private static int baseGrid[][] = { 
 		{3, 5, 0, 0, 0, 0, 0, 0, 0},
 		{7, 2, 0, 0, 8, 1, 0, 9, 0},
 		{0, 0, 0, 0, 0, 7, 0, 0, 0},
@@ -42,7 +42,7 @@ public class SudokuLogic {
 		{0, 0, 0, 0, 0, 0, 0, 0, 0}
 	};
 	
-	public void initializeGrid(TextField blankGrid[][]) {
+	public static void initializeGrid(TextField blankGrid[][]) {
 		for (int i = 0; i <= 8; i++) {
 			for (int j = 0; j <= 8; j++) {
 				blankGrid[i][j] = new TextField();
