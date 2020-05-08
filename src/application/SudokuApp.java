@@ -185,7 +185,7 @@ public class SudokuApp extends Application {
 	}
 	
 	//Checks User Game Progression Based on Feedback from SudokuLogic Functions
-	void processMouseClick(MouseEvent event) {
+	private void processMouseClick(MouseEvent event) {
 		boolean correctEntries = false;
 		//Setup fill for textfield entries
 		redFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
