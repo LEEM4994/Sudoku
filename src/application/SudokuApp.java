@@ -175,22 +175,27 @@ public class SudokuApp extends Application {
 			soundClip.stop();
 		}
 	}
-
+	
+	//Checks User Game Progression Based on Feedback from SudokuLogic Functions
 	void processMouseClick(MouseEvent event) {
 		boolean correctEntries = false;
+		//Setup fill for textfield entries
 		redFill = new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY);
 		incorrectFill = new Background(redFill);
 		
 		whiteFill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
 		correctFill = new Background(whiteFill);
 		
+		//For loops cycle through all textfields to get user inputs and check against an answer key
 		for (int i = 0; i <= 8; i++) {
 			for (int j = 0; j <= 8; j++) {
-				SudokuLogic.getUserNumbers(sudokuGrid);
-				correctEntries = SudokuLogic.checkUserEntry(i, j);
-				if (Integer.valueOf(sudokuGrid[i][j].getText()) == 0 || correctEntries == true) {
+				
+				SudokuLogic.getUserNumbers(sudokuGrid); //Gets all entries from textfields and populates a matrix in SudokuLogic
+				correctEntries = SudokuLogic.checkUserEntry(i, j); //If the user entry into the textfield is correct, correctEntries is true
+				
+				if (Integer.valueOf(sudokuGrid[i][j].getText()) == 0 || correctEntries == true) { //Turns the textfield white if the correct number or a zero is entered
 					sudokuGrid[i][j].setBackground(correctFill);
-				} else if (correctEntries == false) {
+				} else if (correctEntries == false) { //Turns textfield red is entry is incorrect and plays a noise
 					sudokuGrid[i][j].setBackground(incorrectFill);
 					// incorrect.wav sound played for incorrect input
 					try {
@@ -205,8 +210,9 @@ public class SudokuApp extends Application {
 						System.out.println("Exception thrown");
 					}
 				}
-				if(SudokuLogic.checkForWin()) {
-					text.setText("Congratulations! You Win!\n");
+				
+				if(SudokuLogic.checkForWin()) { //Checks if all user entries are the same as the answer key.
+					text.setText("Congratulations! You Win!\n"); //Displays win text
 					text.setFont(font);
 					text.setTextAlignment(TextAlignment.CENTER);
 					this.window.setScene(scene1);
@@ -223,6 +229,7 @@ public class SudokuApp extends Application {
 					}
 					soundClip.stop();
 				}
+				
 			}
 		}
 	}
